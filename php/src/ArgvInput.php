@@ -21,7 +21,7 @@ class ArgvInput extends \Symfony\Component\Console\Input\ArgvInput
         $stream = $this->getStdinStream();
 
         if ($stream->getSize() > 0) {
-            di()->get(ProtobufReader::class)->setStream($stream);
+            di()->get(ROCGenerator::class)->setStream($stream);
             // Handle protobuf plugin
             $argv = ['main.php', 'protobuf'];
         }

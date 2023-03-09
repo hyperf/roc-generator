@@ -14,5 +14,9 @@ return [
         'paths' => [
             BASE_PATH . '/src',
         ],
+        'class_map' => [
+            Protobuf\MessageCollection::class => BASE_PATH . '/config/class_map/MessageCollection.php',
+            Protobuf\ScalarCollection::class => BASE_PATH . '/config/class_map/ScalarCollection.php',
+        ],
     ],
 ];
