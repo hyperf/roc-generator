@@ -10,6 +10,7 @@
  */
 use Hyperf\Di\Container;
 use Hyperf\Di\Definition\DefinitionSourceFactory;
+use Hyperf\ROCGenerator\ArgvInput;
 use Hyperf\Utils\ApplicationContext;
 
 ini_set('display_errors', 'on');
@@ -19,6 +20,7 @@ error_reporting(E_ALL);
 date_default_timezone_set('Asia/Shanghai');
 
 ! defined('BASE_PATH') && define('BASE_PATH', __DIR__);
+! defined('MAIN_PATH') && define('MAIN_PATH', __FILE__);
 
 require BASE_PATH . '/vendor/autoload.php';
 
@@ -31,5 +33,5 @@ require BASE_PATH . '/vendor/autoload.php';
 
     /** @var Symfony\Component\Console\Application $application */
     $application = $container->get(Hyperf\Contract\ApplicationInterface::class);
-    $application->run();
+    $application->run(new ArgvInput());
 })();

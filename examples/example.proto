@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package example;
+
+service ExampleService {
+  rpc ping(Packet) returns (Packet) {}
+}
+
+message Packet {
+  int32 id = 1;
+}
