@@ -11,6 +11,20 @@ declare(strict_types=1);
  */
 namespace Hyperf\ROCGenerator;
 
+use Protobuf\Stream;
+
 class ProtobufReader
 {
+    private Stream $stream;
+
+    public function setStream(Stream $stream): static
+    {
+        $this->stream = $stream;
+        return $this;
+    }
+
+    public function getStream(): Stream
+    {
+        return $this->stream;
+    }
 }
