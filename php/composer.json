@@ -1,0 +1,42 @@
+{
+    "name": "hyperf/roc-generator",
+    "description": "The Generator for ROC RPC.",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "hyperf",
+        "ROC",
+        "RPC"
+    ],
+    "homepage": "https://hyperf.io",
+    "support": {
+        "docs": "https://hyperf.wiki",
+        "issues": "https://github.com/hyperf/hyperf/issues",
+        "pull-request": "https://github.com/hyperf/hyperf/pulls",
+        "source": "https://github.com/hyperf/hyperf"
+    },
+    "require": {
+        "php": ">=8.1",
+        "hyperf/command": "^3.0",
+        "hyperf/config": "^3.0",
+        "hyperf/di": "^3.0",
+        "hyperf/framework": "^3.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hyperf\\ROCGenerator\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix $1"
+    }
+}
