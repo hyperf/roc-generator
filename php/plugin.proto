@@ -27,10 +27,8 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 // Author: kenton@google.com (Kenton Varda)
-//
-// WARNING:  The plugin interface is currently EXPERIMENTAL and is subject to
-//   change.
 //
 // protoc (aka the Protocol Compiler) can be extended via plugins.  A plugin is
 // just a program that reads a CodeGeneratorRequest from stdin and writes a
@@ -41,22 +39,18 @@
 //
 // A plugin executable needs only to be placed somewhere in the path.  The
 // plugin should be named "protoc-gen-$NAME", and will then be used when the
-// flag "–${NAME}_out" is passed to protoc.
+// flag "--${NAME}_out" is passed to protoc.
 
-
-syntax = "proto2";
-
+syntax = "proto3";
 
 package google.protobuf.compiler;
 option java_package = "com.google.protobuf.compiler";
 option java_outer_classname = "PluginProtos";
 
-
+option csharp_namespace = "Google.Protobuf.Compiler";
 option go_package = "google.golang.org/protobuf/types/pluginpb";
 
-
-    import "google/protobuf/descriptor.proto";
-
+import "descriptor.proto";
 
 // The version number of protocol compiler.
 message Version {
@@ -68,18 +62,15 @@ message Version {
   optional string suffix = 4;
 }
 
-
-// An encoded CodeGeneratorRequest is written to the plugin’s stdin.
+// An encoded CodeGeneratorRequest is written to the plugin's stdin.
 message CodeGeneratorRequest {
   // The .proto files that were explicitly listed on the command-line.  The
-  // code generator should generate code only for these files.  Each file’s
+  // code generator should generate code only for these files.  Each file's
   // descriptor will be included in proto_file, below.
   repeated string file_to_generate = 1;
 
-
   // The generator parameter passed on the command-line.
   optional string parameter = 2;
-
 
   // FileDescriptorProtos for all files in files_to_generate and everything
   // they import.  The files will appear in topological order, so each file
@@ -90,20 +81,16 @@ message CodeGeneratorRequest {
   // protobuf wire format.  This theoretically could allow a plugin to stream
   // in the FileDescriptorProtos and handle them one by one rather than read
   // the entire set into memory at once.  However, as of this writing, this
-  // is not similarly optimized on protoc’s end – it will store all fields in
+  // is not similarly optimized on protoc's end -- it will store all fields in
   // memory at once before sending them to the plugin.
   //
   // Type names of fields and extensions in the FileDescriptorProto are always
   // fully qualified.
   repeated FileDescriptorProto proto_file = 15;
 
-
   // The version number of protocol compiler.
   optional Version compiler_version = 3;
-
-
 }
-
 
 // The plugin writes an encoded CodeGeneratorResponse to stdout.
 message CodeGeneratorResponse {
@@ -112,16 +99,14 @@ message CodeGeneratorResponse {
   //
   // This should be used to indicate errors in .proto files which prevent the
   // code generator from generating correct code.  Errors which indicate a
-  // problem in protoc itself – such as the input CodeGeneratorRequest being
-  // unparseable – should be reported by writing a message to stderr and
+  // problem in protoc itself -- such as the input CodeGeneratorRequest being
+  // unparseable -- should be reported by writing a message to stderr and
   // exiting with a non-zero status code.
   optional string error = 1;
-
 
   // A bitmask of supported features that the code generator supports.
   // This is a bitwise "or" of values from the Feature enum.
   optional uint64 supported_features = 2;
-
 
   // Sync with code_generator.h.
   enum Feature {
@@ -129,22 +114,20 @@ message CodeGeneratorResponse {
     FEATURE_PROTO3_OPTIONAL = 1;
   }
 
-
   // Represents a single generated file.
   message File {
     // The file name, relative to the output directory.  The name must not
     // contain "." or ".." components and must be relative, not be absolute (so,
     // the file cannot lie outside the output directory).  "/" must be used as
-    // the path separator, not "".
+    // the path separator, not "\".
     //
     // If the name is omitted, the content will be appended to the previous
     // file.  This allows the generator to break large files into small chunks,
     // and allows the generated text to be streamed back to protoc so that large
     // files need not reside completely in memory at one time.  Note that as of
-    // this writing protoc does not optimize for this – it will read the entire
+    // this writing protoc does not optimize for this -- it will read the entire
     // CodeGeneratorResponse before writing files to disk.
     optional string name = 1;
-
 
     // If non-empty, indicates that the named file should already exist, and the
     // content here is to be inserted into that file at a defined insertion

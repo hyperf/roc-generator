@@ -88,7 +88,7 @@ return (new PhpCsFixer\Config())
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->exclude('public')
+            ->exclude('src/Protobuf')
             ->exclude('runtime')
             ->exclude('vendor')
             ->in(__DIR__)

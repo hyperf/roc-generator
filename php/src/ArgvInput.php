@@ -11,7 +11,6 @@ declare(strict_types=1);
  */
 namespace Hyperf\ROCGenerator;
 
-use Protobuf\Stream;
 use Symfony\Component\Console\Input\InputDefinition;
 
 class ArgvInput extends \Symfony\Component\Console\Input\ArgvInput

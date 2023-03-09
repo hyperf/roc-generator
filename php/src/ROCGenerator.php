@@ -11,9 +11,8 @@ declare(strict_types=1);
  */
 namespace Hyperf\ROCGenerator;
 
-use google\protobuf\compiler\CodeGeneratorRequest;
-use google\protobuf\FileDescriptorProto;
-use Protobuf\Stream;
+use Google\Protobuf\Compiler\CodeGeneratorRequest;
+use Google\Protobuf\FileDescriptorProto;
 use Throwable;
 
 class ROCGenerator
@@ -29,13 +28,13 @@ class ROCGenerator
     public function handle(): int
     {
         try {
-            $request = CodeGeneratorRequest::fromStream($this->stream);
-
-            /** @var FileDescriptorProto $item */
-            foreach ($request->getProtoFileList() as $item) {
-                print_r($item->getOptions()->unknownFieldSet()[41]);
+            $request = new CodeGeneratorRequest();
+            $request->mergeFromString((string) $this->stream);
+            $file = $request->getProtoFile()->getIterator();
+            /** @var FileDescriptorProto $value */
+            foreach ($file as $value) {
+                var_dump($value->getOptions()->getPhpNamespace());
             }
-            // foreach ($item->get)
         } catch (Throwable $throwable) {
             echo (string) $throwable;
         }

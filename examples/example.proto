@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/descriptor.proto";
-
 option php_namespace = "ROCRPC/xxx";
 
 package example;
