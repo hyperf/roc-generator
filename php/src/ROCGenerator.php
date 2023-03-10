@@ -201,6 +201,43 @@ class ROCGenerator
         );
     }
 
+    protected function buildFrom(DescriptorProto $message): Node\Stmt\ClassMethod
+    {
+        $args = [];
+        /** @var FieldDescriptorProto $field */
+        foreach ($message->getField()->getIterator() as $field) {
+            $args[] = new Node\Arg(
+                new Node\Expr\ArrayDimFetch(
+                    new Node\Expr\Variable('data'),
+                    new Node\Scalar\String_($field->getName()),
+                ),
+            );
+        }
+
+        return new Node\Stmt\ClassMethod(
+            new Node\Identifier('from'),
+            [
+                'flags' => Node\Stmt\Class_::MODIFIER_PUBLIC | Node\Stmt\Class_::MODIFIER_STATIC,
+                'returnType' => new Node\Identifier('static'),
+                'params' => [
+                    new Node\Param(
+                        new Node\Expr\Variable('data'),
+                        null,
+                        new Node\Identifier('array')
+                    ),
+                ],
+                'stmts' => [
+                    new Node\Stmt\Return_(
+                        new Node\Expr\New_(
+                            new Node\Name($message->getName()),
+                            $args
+                        )
+                    ),
+                ],
+            ]
+        );
+    }
+
     protected function buildJsonSerialize(DescriptorProto $message): Node\Stmt\ClassMethod
     {
         $items = [];
@@ -240,6 +277,7 @@ class ROCGenerator
             'stmts' => [
                 $this->buildConstructor($message),
                 $this->buildJsonSerialize($message),
+                $this->buildFrom($message),
             ],
         ]);
     }
