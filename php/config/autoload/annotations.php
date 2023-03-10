@@ -15,8 +15,8 @@ return [
             BASE_PATH . '/src',
         ],
         'class_map' => [
-            Protobuf\MessageCollection::class => BASE_PATH . '/config/class_map/MessageCollection.php',
-            Protobuf\ScalarCollection::class => BASE_PATH . '/config/class_map/ScalarCollection.php',
+            Hyperf\Di\Resolver\ResolverDispatcher::class => BASE_PATH . '/src/Kernel/ClassMap/ResolverDispatcher.php',
+            Hyperf\Phar\BuildCommand::class => BASE_PATH . '/src/Kernel/ClassMap/BuildCommand.php',
         ],
     ],
 ];

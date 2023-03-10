@@ -8,6 +8,7 @@
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 use Hyperf\Di\Container;
 use Hyperf\Di\Definition\DefinitionSourceFactory;
 use Hyperf\ROCGenerator\ArgvInput;
@@ -21,6 +22,7 @@ date_default_timezone_set('Asia/Shanghai');
 
 ! defined('BASE_PATH') && define('BASE_PATH', __DIR__);
 ! defined('MAIN_PATH') && define('MAIN_PATH', __FILE__);
+! defined('SWOOLE_HOOK_ALL') && define('SWOOLE_HOOK_ALL', 0);
 
 require BASE_PATH . '/vendor/autoload.php';
 

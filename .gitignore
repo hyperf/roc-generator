@@ -12,7 +12,6 @@ vendor/
 .phpintel/
 .env
 .DS_Store
-*.lock
 node_modules/*
 *.cache
 .bashrc
