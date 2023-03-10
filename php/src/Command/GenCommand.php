@@ -21,6 +21,8 @@ use Symfony\Component\Process\Process;
 #[Command]
 class GenCommand extends HyperfCommand
 {
+    protected bool $coroutine = false;
+
     /**
      * @var ContainerInterface
      */

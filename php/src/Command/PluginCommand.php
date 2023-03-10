@@ -19,6 +19,8 @@ use Psr\Container\ContainerInterface;
 #[Command]
 class PluginCommand extends HyperfCommand
 {
+    protected bool $coroutine = false;
+
     /**
      * @var ContainerInterface
      */
