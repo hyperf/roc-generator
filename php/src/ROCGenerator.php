@@ -117,9 +117,6 @@ class ROCGenerator
         $methods = [];
         /** @var MethodDescriptorProto $value */
         foreach ($service->getMethod()->getIterator() as $value) {
-            file_put_contents('xxx.txt', $value->getInputType());
-            $value->getOutputType();
-
             $methods[] = new Node\Stmt\ClassMethod(
                 $value->getName(),
                 [
