@@ -20,7 +20,7 @@ ini_set('display_startup_errors', 'on');
 date_default_timezone_set('Asia/Shanghai');
 
 ! defined('BASE_PATH') && define('BASE_PATH', __DIR__);
-! defined('MAIN_PATH') && define('MAIN_PATH', __FILE__);
+! defined('MAIN_PATH') && define('MAIN_PATH', getcwd() . '/' . $argv[0]);
 ! defined('SWOOLE_HOOK_ALL') && define('SWOOLE_HOOK_ALL', 0);
 
 require BASE_PATH . '/vendor/autoload.php';
