@@ -17,7 +17,7 @@ php roc.phar gen:roc example.proto
 - 使用打包好的二进制文件
 
 ```shell
-wget https://github.com/Gemini-D/roc-generator/releases/download/v0.1.0/roc-php_8.1_macos.x86_64
+wget https://github.com/hyperf/roc-generator/releases/download/v0.1.0/roc-php_8.1_macos.x86_64
 mv roc-php_8.1_macos.x86_64 /usr/local/bin/roc-php
 roc-php gen:roc example.proto
 ```
