@@ -52,7 +52,7 @@ class GenCommand extends HyperfCommand
 
         $process = new Process([
             'protoc',
-            '--plugin=protoc-gen-roc=' . MAIN_PATH,
+            '--plugin=protoc-gen-roc=' . str_replace('phar://', '', MAIN_PATH),
             '--proto_path=' . $path,
             '--roc_out=' . $output,
             $protobuf,
