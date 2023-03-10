@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Hyperf\ROCGenerator;
 
 use Google\Protobuf\Compiler\CodeGeneratorRequest;
+use Google\Protobuf\Compiler\CodeGeneratorResponse;
 use Google\Protobuf\FileDescriptorProto;
 use Throwable;
 
@@ -32,9 +33,19 @@ class ROCGenerator
             $request->mergeFromString((string) $this->stream);
             $file = $request->getProtoFile()->getIterator();
             /** @var FileDescriptorProto $value */
-            foreach ($file as $value) {
-                var_dump($value->getOptions()->getPhpNamespace());
-            }
+            foreach ($file as $value);
+            // var_dump($value->getOptions()->getPhpNamespace());
+
+            $response = new CodeGeneratorResponse();
+            $file = new CodeGeneratorResponse\File([
+                'name' => 'Test.php',
+                'content' => '<?php',
+            ]);
+            $response->setFile([
+                $file,
+            ]);
+
+            fwrite(STDOUT, $response->serializeToString());
         } catch (Throwable $throwable) {
             echo (string) $throwable;
         }
