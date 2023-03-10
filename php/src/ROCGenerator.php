@@ -198,7 +198,7 @@ class ROCGenerator
         );
     }
 
-    protected function buildFrom(DescriptorProto $message): Node\Stmt\ClassMethod
+    protected function buildJsonDeSerialize(DescriptorProto $message): Node\Stmt\ClassMethod
     {
         $args = [];
         /** @var FieldDescriptorProto $field */
@@ -212,7 +212,7 @@ class ROCGenerator
         }
 
         return new Node\Stmt\ClassMethod(
-            new Node\Identifier('from'),
+            new Node\Identifier('jsonDeSerialize'),
             [
                 'flags' => Node\Stmt\Class_::MODIFIER_PUBLIC | Node\Stmt\Class_::MODIFIER_STATIC,
                 'returnType' => new Node\Identifier('static'),
@@ -274,7 +274,7 @@ class ROCGenerator
             'stmts' => [
                 $this->buildConstructor($message),
                 $this->buildJsonSerialize($message),
-                $this->buildFrom($message),
+                $this->buildJsonDeSerialize($message),
             ],
         ]);
     }
