@@ -125,7 +125,7 @@ class ROCGenerator
         );
     }
 
-    protected function buildClass(DescriptorProto $message): Node\Stmt\Class_
+    protected function buildConstructor(DescriptorProto $message): Node\Stmt\ClassMethod
     {
         $params = [];
         /** @var FieldDescriptorProto $field */
@@ -138,18 +138,54 @@ class ROCGenerator
             );
         }
 
+        return new Node\Stmt\ClassMethod(
+            new Node\Identifier('__construct'),
+            [
+                'flags' => Node\Stmt\Class_::MODIFIER_PUBLIC,
+                'params' => $params,
+            ]
+        );
+    }
+
+    protected function buildJsonSerialize(DescriptorProto $message): Node\Stmt\ClassMethod
+    {
+        $items = [];
+        /** @var FieldDescriptorProto $field */
+        foreach ($message->getField()->getIterator() as $field) {
+            $items[] = new Node\Expr\ArrayItem(
+                new Node\Expr\PropertyFetch(
+                    new Node\Expr\Variable('this'),
+                    new Node\Identifier($field->getName())
+                ),
+                new Node\Scalar\String_($field->getName())
+            );
+        }
+
+        return new Node\Stmt\ClassMethod(
+            new Node\Identifier('jsonSerialize'),
+            [
+                'flags' => Node\Stmt\Class_::MODIFIER_PUBLIC,
+                'returnType' => new Node\Identifier('mixed'),
+                'stmts' => [
+                    new Node\Stmt\Return_(
+                        new Node\Expr\Array_($items, [
+                            'kind' => Node\Expr\Array_::KIND_SHORT,
+                        ]),
+                    ),
+                ],
+            ]
+        );
+    }
+
+    protected function buildClass(DescriptorProto $message): Node\Stmt\Class_
+    {
         return new Node\Stmt\Class_($message->getName(), [
             'implements' => [
                 new Node\Name('JsonSerializable'),
             ],
             'stmts' => [
-                new Node\Stmt\ClassMethod(
-                    new Node\Identifier('__construct'),
-                    [
-                        'flags' => Node\Stmt\Class_::MODIFIER_PUBLIC,
-                        'params' => $params,
-                    ]
-                ),
+                $this->buildConstructor($message),
+                $this->buildJsonSerialize($message),
             ],
         ]);
     }
