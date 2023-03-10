@@ -8,7 +8,7 @@ on:
 
 jobs:
   php:
-    name: Build
+    name: Build PHP
     runs-on: '${{ matrix.os }}'
     strategy:
       matrix:

@@ -10,6 +10,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,3 +25,61 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+  php:
+    name: Build PHP
+    runs-on: '${{ matrix.os }}'
+    needs: release
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        php-version: [ '8.1' ]
+        arch: [ 'macos.arm', 'macos.x86_64' ]
+      max-parallel: 5
+    env:
+      PHP_VERSION: ${{ matrix.php-version }}
+      GH_TOKEN: ${{ github.token }}
+      ARCH: ${{ matrix.arch }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: phpize
+          ini-values: opcache.enable_cli=0
+          coverage: none
+          extensions: pdo, pdo_mysql, redis
+      - name: Setup Packages
+        run: |
+          cd php
+          composer install -o --no-dev
+      - name: Fetch the micro artifacts id
+        id: fetch-micro-artifacts-id
+        shell: php {0}
+        run: |
+          <?php
+          $arch = [
+              'macos.arm' => '592209492',
+              'macos.x86_64' => '592209493',
+          ];
+          $id = $arch[getenv('ARCH')];
+          echo "::set-output name=id::" . $id . PHP_EOL;
+      - name: Build Artifacts
+        run: |
+          # Build phar
+          cd php
+          php -dphar.readonly=Off main.php phar:build -b main.php --name roc.phar
+          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/dixyes/lwmbs/actions/artifacts/${{ steps.fetch-micro-artifacts-id.outputs.id }}/zip > micro.zip
+          unzip micro.zip
+          cat micro.sfx roc.phar > roc-php
+          chmod u+x roc-php
+      - name: Release and Upload Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.release_upload_url }}
+          asset_path: php/roc-php
+          asset_name: roc-php_${{ matrix.php-version }}_${{ matrix.arch }}
+          asset_content_type: application/octet-stream
