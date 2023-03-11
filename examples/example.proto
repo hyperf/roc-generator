@@ -10,4 +10,9 @@ service ExampleService {
 
 message Packet {
   int32 id = 1;
+  BigInt bigInt = 2;
+}
+
+message BigInt {
+  int64 number = 1;
 }
