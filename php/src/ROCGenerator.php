@@ -203,12 +203,29 @@ class ROCGenerator
         $args = [];
         /** @var FieldDescriptorProto $field */
         foreach ($message->getField()->getIterator() as $field) {
-            $args[] = new Node\Arg(
-                new Node\Expr\ArrayDimFetch(
-                    new Node\Expr\Variable('data'),
-                    new Node\Scalar\String_($field->getName()),
-                ),
-            );
+            if ($field->getType() === FieldDescriptorProto\Type::TYPE_MESSAGE) {
+                $args[] = new Node\Arg(
+                    new Node\Expr\StaticCall(
+                        new Node\Name($this->toClassType($field->getTypeName())),
+                        new Node\Identifier('jsonDeSerialize'),
+                        [
+                            new Node\Arg(
+                                new Node\Expr\ArrayDimFetch(
+                                    new Node\Expr\Variable('data'),
+                                    new Node\Scalar\String_($field->getName()),
+                                ),
+                            ),
+                        ]
+                    )
+                );
+            } else {
+                $args[] = new Node\Arg(
+                    new Node\Expr\ArrayDimFetch(
+                        new Node\Expr\Variable('data'),
+                        new Node\Scalar\String_($field->getName()),
+                    ),
+                );
+            }
         }
 
         return new Node\Stmt\ClassMethod(
