@@ -15,6 +15,7 @@ use Google\Protobuf\Compiler\CodeGeneratorRequest;
 use Google\Protobuf\Compiler\CodeGeneratorResponse;
 use Google\Protobuf\DescriptorProto;
 use Google\Protobuf\FieldDescriptorProto;
+use Google\Protobuf\FieldDescriptorProto\Type;
 use Google\Protobuf\FileDescriptorProto;
 use Google\Protobuf\MethodDescriptorProto;
 use Google\Protobuf\ServiceDescriptorProto;
@@ -203,7 +204,7 @@ class ROCGenerator
         $args = [];
         /** @var FieldDescriptorProto $field */
         foreach ($message->getField()->getIterator() as $field) {
-            if ($field->getType() === FieldDescriptorProto\Type::TYPE_MESSAGE) {
+            if ($field->getType() === Type::TYPE_MESSAGE) {
                 $args[] = new Node\Arg(
                     new Node\Expr\StaticCall(
                         new Node\Name($this->toClassType($field->getTypeName())),
@@ -320,10 +321,10 @@ class ROCGenerator
     protected function toPHPType(FieldDescriptorProto $proto): string
     {
         return match ($proto->getType()) {
-            FieldDescriptorProto\Type::TYPE_BOOL => 'bool',
-            FieldDescriptorProto\Type::TYPE_INT32, FieldDescriptorProto\Type::TYPE_INT64 => 'int',
-            FieldDescriptorProto\Type::TYPE_STRING => 'string',
-            FieldDescriptorProto\Type::TYPE_MESSAGE => $this->toClassType($proto->getTypeName()),
+            Type::TYPE_BOOL => 'bool',
+            Type::TYPE_INT32, Type::TYPE_INT64, Type::TYPE_UINT32, Type::TYPE_UINT64 => 'int',
+            Type::TYPE_STRING => 'string',
+            Type::TYPE_MESSAGE => $this->toClassType($proto->getTypeName()),
             default => 'mixed',
         };
     }
