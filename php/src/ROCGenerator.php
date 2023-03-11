@@ -129,7 +129,7 @@ class ROCGenerator
                             new Node\Identifier($this->toClassType($value->getInputType())),
                         ),
                     ],
-                    'returnType' => $this->toClassType($value->getInputType()),
+                    'returnType' => $this->toClassType($value->getOutputType()),
                 ]
             );
         }

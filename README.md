@@ -1,6 +1,6 @@
 # ROCGenerator
 
-## How to build
+## 如何使用
 
 本地必须安装 `protoc` 脚本
 
