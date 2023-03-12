@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/hyperf/roc-generator/roc-go/cmd"
 
 func main() {
-	fmt.Println("Hello World.")
+	cmd.Execute()
 }
