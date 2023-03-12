@@ -225,16 +225,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.22.1",
+            "version": "v3.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "c2b77f2cacaf1a3f540d0386f4dc97b651254f87"
+                "reference": "ff28a64946708e13f2be627b5e5561f247ecf95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/c2b77f2cacaf1a3f540d0386f4dc97b651254f87",
-                "reference": "c2b77f2cacaf1a3f540d0386f4dc97b651254f87",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/ff28a64946708e13f2be627b5e5561f247ecf95c",
+                "reference": "ff28a64946708e13f2be627b5e5561f247ecf95c",
                 "shasum": ""
             },
             "require": {
@@ -263,9 +263,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.22.1"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.22.2"
             },
-            "time": "2023-03-07T21:54:58+00:00"
+            "time": "2023-03-10T17:52:03+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -495,16 +495,16 @@
         },
         {
             "name": "hyperf/contract",
-            "version": "v3.0.0",
+            "version": "v3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/contract.git",
-                "reference": "ec465d74f94341ff9b979cc4a3f0e2ededc05040"
+                "reference": "93488df36b1c4e2fc16c630fb77c110bafffb141"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/contract/zipball/ec465d74f94341ff9b979cc4a3f0e2ededc05040",
-                "reference": "ec465d74f94341ff9b979cc4a3f0e2ededc05040",
+                "url": "https://api.github.com/repos/hyperf/contract/zipball/93488df36b1c4e2fc16c630fb77c110bafffb141",
+                "reference": "93488df36b1c4e2fc16c630fb77c110bafffb141",
                 "shasum": ""
             },
             "require": {
@@ -538,7 +538,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2022-11-01T02:50:54+00:00"
+            "time": "2023-03-10T04:21:37+00:00"
         },
         {
             "name": "hyperf/coordinator",
@@ -1005,16 +1005,16 @@
         },
         {
             "name": "hyperf/utils",
-            "version": "v3.0.9",
+            "version": "v3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/utils.git",
-                "reference": "5335df20f8dab87117f3d97c327dfa1c2ea3876c"
+                "reference": "62e3ecce411f6167b99e7e9dc31e3a63c2b79675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/utils/zipball/5335df20f8dab87117f3d97c327dfa1c2ea3876c",
-                "reference": "5335df20f8dab87117f3d97c327dfa1c2ea3876c",
+                "url": "https://api.github.com/repos/hyperf/utils/zipball/62e3ecce411f6167b99e7e9dc31e3a63c2b79675",
+                "reference": "62e3ecce411f6167b99e7e9dc31e3a63c2b79675",
                 "shasum": ""
             },
             "require": {
@@ -1071,7 +1071,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2023-03-05T03:39:42+00:00"
+            "time": "2023-03-10T05:38:21+00:00"
         },
         {
             "name": "nikic/php-parser",
