@@ -7,9 +7,17 @@ import (
 	"os"
 )
 
-func parse() {
-	code, _ := os.ReadFile("demo/User.go")
-	fset := token.NewFileSet()
-	f, _ := parser.ParseFile(fset, "", code, 0)
-	_ = ast.Print(fset, f)
+func Parse(file string) (fset *token.FileSet, f *ast.File, err error) {
+	code, err := os.ReadFile(file)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	fset = token.NewFileSet()
+	f, err = parser.ParseFile(fset, "", code, 0)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return fset, f, nil
 }
