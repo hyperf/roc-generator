@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 option php_namespace = "ROCRPC\\RPC\\Example";
+option go_package = "roc.hyperf.io/example";
 
 package example;
 

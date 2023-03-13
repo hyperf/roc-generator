@@ -2,28 +2,29 @@ package generator
 
 import (
 	"bufio"
+	"io"
 	"os"
 	"time"
 )
 
-func read(ch chan string) {
+func read(ch chan []byte) {
 	in := bufio.NewReader(os.Stdin)
-	result, err := in.ReadString('\n')
+	result, err := io.ReadAll(in)
 	if err == nil {
 		ch <- result
 	}
 }
 
 func ReadStdin() []byte {
-	ch := make(chan string, 1)
+	ch := make(chan []byte, 1)
 	go read(ch)
-	str := ""
+	var ret []byte
 	select {
-	case str = <-ch:
+	case ret = <-ch:
 		break
 	case <-time.After(time.Second):
 		break
 	}
 
-	return []byte(str)
+	return ret
 }
