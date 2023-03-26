@@ -40,8 +40,8 @@ class GenCommand extends HyperfCommand
         parent::configure();
         $this->setDescription('Generate ROC classes.');
         $this->addArgument('protobuf', InputArgument::REQUIRED, 'The protobuf file');
-        $this->addOption('output', 'O', InputOption::VALUE_OPTIONAL, 'The output dir.');
-        $this->addOption('path', 'I', InputOption::VALUE_OPTIONAL, 'The proto path. (dirname(protobuf file)).');
+        $this->addOption('output', 'o', InputOption::VALUE_OPTIONAL, 'The output dir.');
+        $this->addOption('path', 'i', InputOption::VALUE_OPTIONAL, 'The proto path. (dirname(protobuf file)).');
     }
 
     public function handle()
