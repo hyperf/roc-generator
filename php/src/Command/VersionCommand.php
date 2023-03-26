@@ -13,6 +13,8 @@ namespace Hyperf\ROCGenerator\Command;
 
 use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
+use Hyperf\Utils\Codec\Json;
+use Hyperf\Utils\Str;
 use Psr\Container\ContainerInterface;
 
 #[Command]
@@ -27,6 +29,9 @@ class VersionCommand extends HyperfCommand
 
     public function handle()
     {
-        $this->output->writeln('Version: v0.2.0');
+        $data = Json::decode(file_get_contents(BASE_PATH . '/config/autoload/roc.json'));
+        foreach ($data as $key => $value) {
+            $this->output->writeln(Str::camel($key) . ': ' . $value);
+        }
     }
 }

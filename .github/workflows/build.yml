@@ -42,6 +42,7 @@ jobs:
       - name: Build Artifacts
         run: |
           # Build phar
+          ./vension.sh
           cd php
           php -dphar.readonly=Off main.php phar:build -b main.php --name roc.phar
           gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/dixyes/lwmbs/actions/artifacts/${{ steps.fetch-micro-artifacts-id.outputs.id }}/zip > micro.zip
