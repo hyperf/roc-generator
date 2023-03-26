@@ -13,21 +13,20 @@ namespace Hyperf\ROCGenerator\Command;
 
 use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
-use Hyperf\ROCGenerator\ROCGenerator;
 use Psr\Container\ContainerInterface;
 
 #[Command]
-class PluginCommand extends HyperfCommand
+class VersionCommand extends HyperfCommand
 {
     protected bool $coroutine = false;
 
     public function __construct(protected ContainerInterface $container)
     {
-        parent::__construct('protobuf');
+        parent::__construct('version');
     }
 
     public function handle()
     {
-        return di()->get(ROCGenerator::class)->handle();
+        $this->output->writeln('Version: v0.2.0');
     }
 }
