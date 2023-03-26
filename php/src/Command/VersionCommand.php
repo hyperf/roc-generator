@@ -25,6 +25,7 @@ class VersionCommand extends HyperfCommand
     public function __construct(protected ContainerInterface $container)
     {
         parent::__construct('version');
+        $this->setDescription('Print the version of roc-php.');
     }
 
     public function handle()
